@@ -12,7 +12,10 @@ def create_app():
     db.init_app(app)
 
     # Register blueprints/routes
-    from src.routes import main_bp
+    from src.routes.health_check import main_bp
     app.register_blueprint(main_bp)
+
+    from src.routes.object_routes import objects_bp
+    app.register_blueprint(objects_bp)
 
     return app

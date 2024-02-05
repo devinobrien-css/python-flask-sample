@@ -5,8 +5,8 @@ from src import db
 
 main_bp = Blueprint('main', __name__)
 
-@main_bp.route('/ping', methods=['GET'])
-def ping():
+@main_bp.route('/health', methods=['GET'])
+def health_check():
     try:
         # Check if the database connection is working
         db.session.execute(text('SELECT 1'))
