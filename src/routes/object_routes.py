@@ -23,3 +23,19 @@ def create_object():
     db.session.add(new_object)
     db.session.commit()
     return jsonify({'object': asdict(new_object)}), 201
+
+@objects_bp.route('/objects/<int:object_id>', methods=['PATCH'])
+def update_object(object_id):
+    data = request.get_json()
+    existing_object = Object.query.get_or_404(object_id)
+    for key, value in data.items():
+        setattr(existing_object, key, value)
+    db.session.commit()
+    return jsonify({'object': asdict(existing_object)}), 200
+
+@objects_bp.route('/objects/<int:object_id>', methods=['DELETE'])
+def delete_object(object_id):
+    existing_object = Object.query.get_or_404(object_id)
+    db.session.delete(existing_object)
+    db.session.commit()
+    return '', 204
