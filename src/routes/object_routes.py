@@ -2,19 +2,24 @@ from flask import Blueprint, jsonify, request
 from dataclasses import asdict
 from src import db
 from src.models import Object
+from flask_cors import cross_origin
 
 objects_bp = Blueprint('objects', __name__)
 
+
 @objects_bp.route('/objects', methods=['GET'])
+@cross_origin()
 def get_objects():
     objects = Object.query.all()
     object_list = [asdict(object) for object in objects]
     return jsonify({'objects': object_list}), 200
 
+
 @objects_bp.route('/objects/<int:object_id>', methods=['GET'])
 def get_object(object_id):
     task = Object.query.get_or_404(object_id)
     return jsonify({'object': asdict(task)}), 200
+
 
 @objects_bp.route('/objects', methods=['POST'])
 def create_object():
@@ -24,6 +29,7 @@ def create_object():
     db.session.commit()
     return jsonify({'object': asdict(new_object)}), 201
 
+
 @objects_bp.route('/objects/<int:object_id>', methods=['PATCH'])
 def update_object(object_id):
     data = request.get_json()
@@ -32,6 +38,7 @@ def update_object(object_id):
         setattr(existing_object, key, value)
     db.session.commit()
     return jsonify({'object': asdict(existing_object)}), 200
+
 
 @objects_bp.route('/objects/<int:object_id>', methods=['DELETE'])
 def delete_object(object_id):
