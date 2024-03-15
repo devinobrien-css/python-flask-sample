@@ -5,7 +5,7 @@ from src import db
 
 main_bp = Blueprint('main', __name__)
 
-@main_bp.route('/health', methods=['GET'])
+@main_bp.route('/', methods=['GET'])
 def health_check():
     try:
         # Check if the database connection is working
