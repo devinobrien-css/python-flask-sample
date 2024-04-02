@@ -11,8 +11,8 @@ A sample RESTful Python/Flask server that uses Pipenv for dependency management.
 
 ## Open API Specifications
 
-To view the endpoint specs for this server, please refer to the [OpenAPI yaml](openapi.yaml). To view them neatly,
-copy and paste the content into the [Swagger IO editor](https://editor.swagger.io/)
+To view the endpoint specs for this server, please refer to the [OpenAPI yaml](openapi.yaml). To render neatly,
+launch the server and go to [/openapi](http://localhost:5000/openapi)
 
 ## Dependencies
 
